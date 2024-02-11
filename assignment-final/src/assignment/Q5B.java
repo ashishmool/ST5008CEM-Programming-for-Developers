@@ -20,7 +20,7 @@ package assignment;
 
 import java.util.*;
 
-class Q5B {
+public class Q5B {
     int[] disc, low;
     int time = 1;
     List<List<Integer>> ans = new ArrayList<>();
