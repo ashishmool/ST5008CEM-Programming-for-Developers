@@ -21,6 +21,8 @@ public class Q6 extends JFrame {
     public Q6() {
         initComponents();
         executorService = Executors.newCachedThreadPool();
+        setSize(800, 600); // Set initial size of the window
+
     }
 
     private void initComponents() {
@@ -149,6 +151,11 @@ class DownloadEntry extends JPanel {
 
     public void togglePause() {
         isPaused = !isPaused;
+        if (isPaused) {
+            btnPause.setText("Resume");
+        } else {
+            btnPause.setText("Pause");
+        }
     }
 
     public void cancelDownload() {
