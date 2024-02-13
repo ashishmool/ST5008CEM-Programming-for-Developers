@@ -28,8 +28,10 @@ public class Q6 extends JFrame {
     private void initComponents() {
         btnStartDownload = new JButton("Start Download");
         txtImageURL = new JTextField("https://images.pexels.com/photos/2456439/pexels-photo-2456439.jpeg");
+        txtImageURL.setVisible(true); // Make the text field visible
+        txtImageURL.setEditable(true); // Make the text field editable
         btnCancelReset = new JButton("Cancel All");
-        lblTitle = new JLabel("Multithreaded Asynchronous Image Downloader", JLabel.CENTER);
+        lblTitle = new JLabel("Multithreaded Asynchronous Image Downloader by 220417", JLabel.CENTER);
         lblStatus = new JLabel("Downloads:", JLabel.CENTER);
 
         btnStartDownload.addActionListener(this::btnStartDownloadActionPerformed);
@@ -44,6 +46,8 @@ public class Q6 extends JFrame {
         JPanel controlPanel = new JPanel(new FlowLayout());
 
         controlPanel.add(btnStartDownload);
+        controlPanel.add(txtImageURL); // Add the text field to the control panel
+
         controlPanel.add(btnCancelReset);
         mainPanel.add(controlPanel, BorderLayout.NORTH);
 
@@ -60,8 +64,31 @@ public class Q6 extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    private boolean isValidImageUrl(String url) {
+        // Define a list of valid image extensions
+        String[] validExtensions = {".jpg", ".jpeg", ".png", ".tif", ".svg", ".webp", ".tiff", ".bmp"};
+
+        // Check if the URL ends with a valid image extension
+        for (String extension : validExtensions) {
+            if (url.toLowerCase().endsWith(extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     private void btnStartDownloadActionPerformed(ActionEvent evt) {
         String imageUrl = txtImageURL.getText();
+
+        // Check if the URL is valid
+        if (!isValidImageUrl(imageUrl)) {
+            JOptionPane.showMessageDialog(this, "Enter Valid Image URL", "Invalid URL", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+
+
         DownloadEntry downloadEntry = new DownloadEntry(imageUrl);
         downloadPanel.add(downloadEntry);
         downloadPanel.revalidate();
@@ -209,7 +236,7 @@ class DownloadTask implements Runnable {
                 if (!downloadEntry.isPaused()) {
                     int progress = (int) ((double) downloadedBytes / TOTAL_BYTES * 100);
                     SwingUtilities.invokeLater(() -> downloadEntry.setProgress(progress));
-                    Thread.sleep(100); // Simulating download delay
+                    Thread.sleep(1000); // Simulating download delay
                     downloadedBytes += DOWNLOAD_INCREMENT; // Increment downloaded bytes
                 }
             }
