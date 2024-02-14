@@ -236,7 +236,7 @@ class DownloadTask implements Runnable {
                 if (!downloadEntry.isPaused()) {
                     int progress = (int) ((double) downloadedBytes / TOTAL_BYTES * 100);
                     SwingUtilities.invokeLater(() -> downloadEntry.setProgress(progress));
-                    Thread.sleep(1000); // Simulating download delay
+                    Thread.sleep(100); // Simulating download delay
                     downloadedBytes += DOWNLOAD_INCREMENT; // Increment downloaded bytes
                 }
             }
