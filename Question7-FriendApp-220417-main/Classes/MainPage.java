@@ -63,6 +63,9 @@ import Entities.User;
         RoundedPanel RSPanelForFriends;
         RoundedPanel RSPanelforMessaging;
         JPanel newsPanel;
+
+        JPanel recommendationPanel; // Declare the recommendation panel
+
         RoundedPanel postPanel;
         RoundedPanel searchPanel;
         RoundedPanel searchPanelForMessaging;
@@ -624,6 +627,18 @@ import Entities.User;
             friendsPane.setBounds(0,130,543,600);
             friendsPane.setBorder(new LineBorder(Color.white));
 
+            // Adding the recommendation panel
+            recommendationPanel = new JPanel();
+            recommendationPanel.setBackground(Color.white);
+            recommendationPanel.setPreferredSize(new Dimension(500, 10000));
+            recommendationPanel.setLayout(null);
+
+            JScrollPane recommendationPane = new JScrollPane(recommendationPanel);
+            recommendationPane.setBounds(0, 130, 543, 600);
+            recommendationPane.setBorder(new LineBorder(Color.white));
+
+
+
             searchTextField.addKeyListener(new KeyListener() {
                 @Override
                 public void keyTyped(KeyEvent e){
@@ -795,6 +810,10 @@ import Entities.User;
                                 friendsListPanel.add(followingLabel[i]);
 
                                 friendsListPanel.repaint();
+                                FriendRecommendation friendRecommendation = new FriendRecommendation(connection);
+                                friendRecommendation.showRecommendations(username);
+
+
                             }
                         } catch (SQLException e1) {
                             e1.printStackTrace();
